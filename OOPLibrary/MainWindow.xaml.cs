@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +20,15 @@ namespace OOPLibrary
     public partial class MainWindow : Window
     {
         private Library library;
+        
 
         public MainWindow()
         {
             InitializeComponent();
             library = new Library();
         }
+
+        
 
         private void btnAddBook_Click(object sender, RoutedEventArgs e)
         {
@@ -34,8 +38,10 @@ namespace OOPLibrary
             int year = int.Parse(tbYear.Text);
             string specific = tbSpecific.Text;
             string bookType = (cbBookType.SelectedItem as ComboBoxItem)?.Content.ToString();
+          
 
             Book book = null;
+
 
             if (bookType == "Fiction")
             {
@@ -70,6 +76,66 @@ namespace OOPLibrary
         {
             library.SaveToFile("book_list.txt");
             MessageBox.Show("Book list saved.");
+   
         }
+        
+
     }
+
+    public class Book
+    {
+        public string Title { get; set; }
+        public string Author { get; set; }
+
+        public string Isbn { get; set; }
+
+        public int Year { get; set; }
+    }
+
+    public class Fiction : Book
+    { 
+    public string Genre { get; set; }
+
+    }
+    public class NonFiction : Book 
+    { public string Genre { get; set;}
+      public string Field { get; set; }
+    }
+
+    public class Comic : Book 
+    {
+        public string Genre { get; set;} 
+        public string Illustrator { get; set;}
+    }
+
+    public class Library
+    {
+        public List<Book> BookList { get; set; }
+
+     public void   AddBook()
+        {
+
+            
+   
+        }
+
+       public void ShowBookList(Book book)
+        {
+            string testList = ".";
+            foreach(Book v in BookList)
+            {
+                testList += v.Title;
+            }
+        }
+
+      public void  SaveToFile()
+        {
+            
+        }
+
+
+
+
+    }
+
 }
